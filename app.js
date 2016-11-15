@@ -1,12 +1,13 @@
-if (process.argv.length != 4) {
-  console.log("usage: " + process.argv[0] + " " + process.argv[1] + " CLIENT_ID CLIENT_SECRET");
-  process.exit();
-}
 
-var CLIENT_ID = process.argv[2];
-var CLIENT_SECRET = process.argv[3];
-var bearer;
-var access_url;
+var fs = require("fs");
+var content = fs.readFileSync("data/credentials.json");
+var credentials = JSON.parse(content);
+var CLIENT_ID = credentials.CLIENT_ID;
+var CLIENT_SECRET = credentials.CLIENT_SECRET;
+var dbUser = credentials.dbUser;
+var dbPass = credentials.dbPass;
+var bearer = credentials.bearer;
+var access_url = credentials.access_url;
 
 var express = require('express');
 var path = require('path');
@@ -18,7 +19,10 @@ var request = require('request');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var db;
+const MongoClient = require('mongodb').MongoClient;
+var mongoDbUrl = 'mongodb://' + dbUser + ":" + dbPass +
+"@ds151707.mlab.com:51707/energywebapp";
 var app = express();
 
 // view engine setup
@@ -35,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var endpoints_uri = 'https://graph.api.smartthings.com/api/smartapps/endpoints';
 
-const credentials = {
+const creds = {
   client: {
     id: CLIENT_ID,
     secret: CLIENT_SECRET
@@ -45,7 +49,7 @@ const credentials = {
   }
 }
 
-var oauth2 = require('simple-oauth2').create(credentials);
+var oauth2 = require('simple-oauth2').create(creds);
 
 // Authorization uri definition
 var authorization_uri = oauth2.authorizationCode.authorizeURL({
@@ -53,6 +57,13 @@ var authorization_uri = oauth2.authorizationCode.authorizeURL({
   scope: 'app',
   state: '3(#0/!~'
 });
+
+MongoClient.connect(mongoDbUrl, (err, database) => {
+  if (err) return console.log(err)
+  db = database
+  console.log('DB Connected!')
+})
+
 
 // Initial page redirecting to Github
 app.get('/auth', function (req, res) {
@@ -73,13 +84,32 @@ app.get('/callback', function (req, res) {
 
     // result.access_token is the token, get the endpoint
     bearer = result.access_token
+    credentials.bearer = bearer
     var sendreq = { method: "GET", uri: endpoints_uri + "?access_token=" +
      result.access_token };
     request(sendreq, function (err, res1, body) {
       var endpoints = JSON.parse(body);
       // we just show the final access URL and Bearer code
       access_url = endpoints[0].uri
+      credentials.access_url = access_url
       //res.send('<pre>' + access_url + '</pre><br><pre>Bearer ' + bearer + '</pre>');
+
+      fs.writeFile('data/credentials2.json', JSON.stringify(credentials),  function(err) {
+         if (err) {
+            return console.error(err);
+         }
+
+         console.log("Data written successfully!");
+         console.log("Let's read newly written data");
+         fs.readFile('input.txt', function (err, data) {
+            if (err) {
+               return console.error(err);
+            }
+            console.log("Asynchronous read: " + data.toString());
+         });
+      });
+
+
       res.redirect('/')
 
     });
@@ -106,10 +136,6 @@ app.get('/', function (req, res){
        }
   })
 });
-
-//app.listen(3000);
-
-console.log('Express server started on port 3000');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

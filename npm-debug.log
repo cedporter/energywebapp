@@ -1,9 +1,5 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/local/bin/node',
-1 verbose cli   '/usr/local/bin/npm',
-1 verbose cli   'start',
-1 verbose cli   '2009ec49-dc69-4797-8b6b-23b9be3e1791',
-1 verbose cli   'ff1a6c57-9d6c-4bdc-995b-b507ee05712f' ]
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
 2 info using npm@3.10.8
 3 info using node@v6.9.1
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
@@ -11,13 +7,12 @@
 6 silly lifecycle energywebapp@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle energywebapp@0.0.0~start: energywebapp@0.0.0
 8 verbose lifecycle energywebapp@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle energywebapp@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/cedporter/Projects/node/energywebapp/node_modules/.bin://anaconda/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/cedporter/.rvm/bin:/Users/cedporter/.rvm/bin
+9 verbose lifecycle energywebapp@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/cedporter/Projects/node/energywebapp/node_modules/.bin://anaconda/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/cedporter/.rvm/bin
 10 verbose lifecycle energywebapp@0.0.0~start: CWD: /Users/cedporter/Projects/node/energywebapp
-11 silly lifecycle energywebapp@0.0.0~start: Args: [ '-c',
-11 silly lifecycle   'node ./bin/www "2009ec49-dc69-4797-8b6b-23b9be3e1791" "ff1a6c57-9d6c-4bdc-995b-b507ee05712f"' ]
+11 silly lifecycle energywebapp@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle energywebapp@0.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle energywebapp@0.0.0~start: Failed to exec start script
-14 verbose stack Error: energywebapp@0.0.0 start: `node ./bin/www "2009ec49-dc69-4797-8b6b-23b9be3e1791" "ff1a6c57-9d6c-4bdc-995b-b507ee05712f"`
+14 verbose stack Error: energywebapp@0.0.0 start: `node ./bin/www`
 14 verbose stack Exit status 1
 14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
 14 verbose stack     at emitTwo (events.js:106:13)
@@ -30,18 +25,18 @@
 15 verbose pkgid energywebapp@0.0.0
 16 verbose cwd /Users/cedporter/Projects/node/energywebapp
 17 error Darwin 14.5.0
-18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start" "2009ec49-dc69-4797-8b6b-23b9be3e1791" "ff1a6c57-9d6c-4bdc-995b-b507ee05712f"
+18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
 19 error node v6.9.1
 20 error npm  v3.10.8
 21 error code ELIFECYCLE
-22 error energywebapp@0.0.0 start: `node ./bin/www "2009ec49-dc69-4797-8b6b-23b9be3e1791" "ff1a6c57-9d6c-4bdc-995b-b507ee05712f"`
+22 error energywebapp@0.0.0 start: `node ./bin/www`
 22 error Exit status 1
-23 error Failed at the energywebapp@0.0.0 start script 'node ./bin/www "2009ec49-dc69-4797-8b6b-23b9be3e1791" "ff1a6c57-9d6c-4bdc-995b-b507ee05712f"'.
+23 error Failed at the energywebapp@0.0.0 start script 'node ./bin/www'.
 23 error Make sure you have the latest version of node.js and npm installed.
 23 error If you do, this is most likely a problem with the energywebapp package,
 23 error not with npm itself.
 23 error Tell the author that this fails on your system:
-23 error     node ./bin/www "2009ec49-dc69-4797-8b6b-23b9be3e1791" "ff1a6c57-9d6c-4bdc-995b-b507ee05712f"
+23 error     node ./bin/www
 23 error You can get information on how to open an issue for this project with:
 23 error     npm bugs energywebapp
 23 error Or if that isn't available, you can get their info via:
