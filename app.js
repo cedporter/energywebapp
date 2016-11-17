@@ -58,12 +58,6 @@ var authorization_uri = oauth2.authorizationCode.authorizeURL({
   state: '3(#0/!~'
 });
 
-MongoClient.connect(mongoDbUrl, (err, database) => {
-  if (err) return console.log(err)
-  db = database
-  console.log('DB Connected!')
-})
-
 
 // Initial page redirecting to Github
 app.get('/auth', function (req, res) {
@@ -136,6 +130,26 @@ app.get('/', function (req, res){
        }
   })
 });
+
+//Example of actually accepting JSON and inserting it into DB
+//If you run this and use Postman to send yourself JSON data, it works
+app.post('/switchevent', function(req, res){
+  console.log(req.body);
+
+  var json = req.body;
+
+  MongoClient.connect(mongoDbUrl, (err, database) => {
+    if (err) return console.log(err)
+    db = database
+    console.log('DB Connected!')
+    db.collection('switch_test').insert(json, function(err, doc) {
+        console.log(doc);
+    if(err) throw err;
+    res.send(doc + "\nInserted");
+    });
+  });
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
