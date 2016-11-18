@@ -28,7 +28,7 @@ router.get('/currentstatus', function (req, res){
       if (!error && response.statusCode == 200) {
         console.log(body)
         res.render('currentstatus', {
-          "itemlist" : JSON.stringify(body);
+          "itemlist" : JSON.stringify(body)
       });
        }
   })
