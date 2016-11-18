@@ -13,6 +13,8 @@ router.get('/', function (req, res){
 });
 
 router.get('/currentstatus', function (req, res){
+  var access_url = req.access_url;
+  var bearer = req.bearer;
   var options = {
     method: "GET",
     uri: access_url + "/switches",

@@ -61,6 +61,16 @@ app.use(function(req,res,next){
     next();
 });
 
+app.use(function(req,res,next){
+    req.bearer = bearer;
+    next();
+});
+
+app.use(function(req,res,next){
+    req.access_url = access_url;
+    next();
+});
+
 
 app.get('/auth', function (req, res) {
   res.redirect(authorization_uri);
