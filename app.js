@@ -16,7 +16,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var currentstatus = require('./routes/currentstatus');
 var db;
 const MongoClient = require('mongodb').MongoClient;
 var mongoDbUrl = 'mongodb://' + dbUser + ":" + dbPass +
@@ -57,7 +57,7 @@ var authorization_uri = oauth2.authorizationCode.authorizeURL({
 });
 
 
-// Initial page redirecting to Github
+
 app.get('/auth', function (req, res) {
   res.redirect(authorization_uri);
 });
@@ -96,37 +96,12 @@ app.get('/initialize', function (req, res) {
   res.send('<a href="/auth">Connect with SmartThings</a>');
 });
 
-app.get('/currentstatus', function (req, res){
-  var options = {
-    method: "GET",
-    uri: access_url + "/switches",
-    headers: {
-      'Authorization': 'Bearer' + bearer
-    }
-  };
 
-  request(options, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-          res.send(body) // Print the google web page.
-       }
-  })
-});
+//use index.js for this route
+app.use('/', index);
 
-
-app.get('/', function (req, res){
-  MongoClient.connect(mongoDbUrl, (err, database) => {
-    if (err) return console.log(err)
-    db = database
-    console.log('DB Connected!')
-    db.collection('switch_test').find().toArray(function(err, docs) {
-      console.log("RETRIEVED " + docs);
-      if(err) throw err;
-      res.send(docs);
-      db.close();
-    });
-  });
-});
-
+//use currentstatus.js for this route
+app.use('/currentstatus', currentstatus)
 
 //Example of actually accepting JSON and inserting it into DB
 //If you run this and use Postman to send yourself JSON data, it works
