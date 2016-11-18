@@ -4,8 +4,8 @@ var CLIENT_ID = process.env.CLIENT_ID;
 var CLIENT_SECRET = process.env.CLIENT_SECRET;
 var dbUser = process.env.DB_USER;
 var dbPass = process.env.DB_PASSWORD;
-var bearer;
-var access_url;
+var bearer = process.env.BEARER;
+var access_url = process.env.ACCESS_URL;
 
 var express = require('express');
 var path = require('path');
@@ -75,15 +75,15 @@ app.get('/callback', function (req, res) {
     if (error) { console.log('Access Token Error', error.message); }
 
     // result.access_token is the token, get the endpoint
-    bearer = result.access_token
-    credentials.bearer = bearer
+    bearer = result.access_token;
+    process.env['BEARER'] = bearer;
     var sendreq = { method: "GET", uri: endpoints_uri + "?access_token=" +
      result.access_token };
     request(sendreq, function (err, res1, body) {
       var endpoints = JSON.parse(body);
       // we just show the final access URL and Bearer code
       access_url = endpoints[0].uri
-      credentials.access_url = access_url
+      process.env['ACCESS_URL'] = access_url
       //res.send('<pre>' + access_url + '</pre><br><pre>Bearer ' + bearer + '</pre>');
 
       fs.writeFile('data/credentials2.json', JSON.stringify(credentials),  function(err) {
