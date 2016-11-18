@@ -56,6 +56,10 @@ var authorization_uri = oauth2.authorizationCode.authorizeURL({
   state: '3(#0/!~'
 });
 
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
 
 
 app.get('/auth', function (req, res) {
