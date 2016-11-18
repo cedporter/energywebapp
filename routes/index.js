@@ -9,7 +9,6 @@ router.get('/', function (req, res){
     console.log("RETRIEVED " + docs);
     if(err) throw err;
     res.send(docs);
-    db.close();
   });
 });
 
