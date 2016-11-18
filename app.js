@@ -145,4 +145,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+//Initialize the DB connection, and then launch the app
+MongoClient.connect(mongoDbUrl, function(err, database) {
+  if(err) throw err;
+
+  db = database;
+  module.exports = app;
+});
