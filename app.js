@@ -68,7 +68,7 @@ app.get('/callback', function (req, res) {
   // console.log('/callback got code' + code);
   oauth2.authorizationCode.getToken({
     code: code,
-    redirect_uri: 'http://localhost:3000/callback'
+    redirect_uri: 'https://energywebapp.herokuapp.com/callback'
   }, saveToken);
 
   function saveToken(error, result) {
