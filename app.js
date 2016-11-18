@@ -1,13 +1,12 @@
 
 var fs = require("fs");
-var content = fs.readFileSync("data/credentials.json");
 var credentials = JSON.parse(content);
-var CLIENT_ID = credentials.CLIENT_ID;
-var CLIENT_SECRET = credentials.CLIENT_SECRET;
-var dbUser = credentials.dbUser;
-var dbPass = credentials.dbPass;
-var bearer = credentials.bearer;
-var access_url = credentials.access_url;
+var CLIENT_ID = process.env.CLIENT_ID;
+var CLIENT_SECRET = process.env.CLIENT_SECRET;
+var dbUser = process.env.DB_USER;
+var dbPass = process.env.DB_PASSWORD;
+var bearer;
+var access_url;
 
 var express = require('express');
 var path = require('path');
