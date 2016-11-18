@@ -1,6 +1,5 @@
 
 var fs = require("fs");
-var credentials = JSON.parse(content);
 var CLIENT_ID = process.env.CLIENT_ID;
 var CLIENT_SECRET = process.env.CLIENT_SECRET;
 var dbUser = process.env.DB_USER;
