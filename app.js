@@ -51,7 +51,7 @@ var oauth2 = require('simple-oauth2').create(creds);
 
 // Authorization uri definition
 var authorization_uri = oauth2.authorizationCode.authorizeURL({
-  redirect_uri: 'http://localhost:3000/callback',
+  redirect_uri: 'https://energywebapp.herokuapp.com/callback',
   scope: 'app',
   state: '3(#0/!~'
 });
