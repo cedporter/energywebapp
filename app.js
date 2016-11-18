@@ -105,7 +105,7 @@ app.get('/initialize', function (req, res) {
 app.use('/', index);
 
 //use currentstatus.js for this route
-app.use('/currentstatus', currentstatus)
+app.use('/currentstatus', currentstatus);
 
 //Example of actually accepting JSON and inserting it into DB
 //If you run this and use Postman to send yourself JSON data, it works
