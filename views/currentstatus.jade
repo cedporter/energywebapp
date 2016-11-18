@@ -6,4 +6,5 @@ block content
     ul
         each item, i in itemlist
             li
-                item.name item.value
+                if item.name
+                    item.name item.value
