@@ -86,22 +86,6 @@ app.get('/callback', function (req, res) {
       process.env['ACCESS_URL'] = access_url
       //res.send('<pre>' + access_url + '</pre><br><pre>Bearer ' + bearer + '</pre>');
 
-      fs.writeFile('data/credentials2.json', JSON.stringify(credentials),  function(err) {
-         if (err) {
-            return console.error(err);
-         }
-
-         console.log("Data written successfully!");
-         console.log("Let's read newly written data");
-         fs.readFile('input.txt', function (err, data) {
-            if (err) {
-               return console.error(err);
-            }
-            console.log("Asynchronous read: " + data.toString());
-         });
-      });
-
-
       res.redirect('/')
 
     });
