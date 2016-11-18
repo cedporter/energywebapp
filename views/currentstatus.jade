@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1.
+        Current Status
+    ul
+        each item, i in itemlist
+            li
+                item.name item.value
