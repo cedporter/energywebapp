@@ -150,5 +150,7 @@ MongoClient.connect(mongoDbUrl, function(err, database) {
   if(err) throw err;
 
   db = database;
-  module.exports = app;
+  console.log('DB Initilized');
 });
+
+module.exports = app;
