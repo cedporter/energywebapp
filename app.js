@@ -86,7 +86,7 @@ app.get('/callback', function (req, res) {
       process.env['ACCESS_URL'] = access_url
       //res.send('<pre>' + access_url + '</pre><br><pre>Bearer ' + bearer + '</pre>');
 
-      res.redirect('/')
+      res.redirect('/currentstatus')
 
     });
   }
@@ -96,7 +96,7 @@ app.get('/initialize', function (req, res) {
   res.send('<a href="/auth">Connect with SmartThings</a>');
 });
 
-app.get('/', function (req, res){
+app.get('/currentstatus', function (req, res){
   var options = {
     method: "GET",
     uri: access_url + "/switches",
@@ -105,13 +105,28 @@ app.get('/', function (req, res){
     }
   };
 
-
   request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
           res.send(body) // Print the google web page.
        }
   })
 });
+
+
+app.get('/', function (req, res){
+  MongoClient.connect(mongoDbUrl, (err, database) => {
+    if (err) return console.log(err)
+    db = database
+    console.log('DB Connected!')
+    db.collection('switch_test').find().toArray(function(err, docs) {
+      console.log("RETRIEVED " + docs);
+      if(err) throw err;
+      res.send(docs);
+      db.close();
+    });
+  });
+});
+
 
 //Example of actually accepting JSON and inserting it into DB
 //If you run this and use Postman to send yourself JSON data, it works
