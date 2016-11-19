@@ -196,7 +196,7 @@ app.post('/switchevent', function(req, res){
       homeTheater.monthlyDuration += json.duration;
       homeTheater.weeklyDuration += json.duration;
       break;
-    case default:
+    default:
       console.log("No matching deviceName: " + json.deviceName);
   }
 
