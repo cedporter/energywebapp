@@ -4,6 +4,6 @@ block content
     h1.
         Current Status
     ul
-        for item in !{itemlist}
+        each item in itemlist
             li
-                !{item}
+                item.name
