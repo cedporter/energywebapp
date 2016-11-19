@@ -56,11 +56,13 @@ var authorization_uri = oauth2.authorizationCode.authorizeURL({
   state: '3(#0/!~'
 });
 
+//Exposes DB instance to other modules
 app.use(function(req,res,next){
     req.db = db;
     next();
 });
 
+//Exposes bearer to modules
 app.use(function(req,res,next){
     req.bearer = bearer;
     next();
@@ -124,6 +126,10 @@ app.post('/switchevent', function(req, res){
 
   var json = req.body;
 
+  console.log("DeviceName: " + json.deviceName);
+  console.log("Duration: " + json.duration); 
+
+  //Constructs DB instance for app
   MongoClient.connect(mongoDbUrl, (err, database) => {
     if (err) return console.log(err)
     db = database
