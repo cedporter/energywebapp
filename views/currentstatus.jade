@@ -3,7 +3,9 @@ extends layout
 block content
     h1.
         Current Status
+    p
+        itemlist
     ul
         for item in itemlist
             li
-                item
+                !{item.name}
