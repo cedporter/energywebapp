@@ -3,9 +3,9 @@ extends layout
 block content
     h1.
         Current Status
-    p
-        itemlist
+    h2.
+        Tracked Lights
     ul
         for item in itemlist
             li
-                !{item.name}
+                !{item.name} is !{item.value}
