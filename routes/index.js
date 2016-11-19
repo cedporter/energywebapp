@@ -25,7 +25,7 @@ router.get('/currentstatus', function (req, res){
 
   request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log(body)
+        console.log(body + "\nType: " typeof body)
         res.render('currentstatus', {
           "itemlist" : body
       });
