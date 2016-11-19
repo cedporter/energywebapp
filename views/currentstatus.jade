@@ -4,7 +4,8 @@ block content
     h1.
         Current Status
     ul
-        each item, i in itemlist
-            li
-                if item.name
+        each item, i in #{itemlist}
+
+            if item.name
+                li
                     item.name item.value
