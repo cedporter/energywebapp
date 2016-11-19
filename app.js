@@ -14,6 +14,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var request = require('request');
+var schedule = require('node-schedule');
 
 var index = require('./routes/index');
 var currentstatus = require('./routes/currentstatus');
@@ -22,6 +23,49 @@ const MongoClient = require('mongodb').MongoClient;
 var mongoDbUrl = 'mongodb://' + dbUser + ":" + dbPass +
 "@ds151707.mlab.com:51707/energywebapp";
 var app = express();
+
+//Hardcoded device key/value pairs for prototype demo
+//Should be moved to mongoDB collection
+var chandelier = {dailyDuration: 0,
+  weeklyDuration: 0,
+  monthlyDuration: 0,
+  bulbType: "LED",
+  bulbCount: 15,
+  bulbWattage: 1.8,
+  totalWattage: 27};
+
+var bedroom = {dailyDuration: 0,
+  weeklyDuration: 0,
+  monthlyDuration: 0,
+  bulbType: "LED",
+  bulbCount: 6,
+  bulbWattage: 21.5,
+  totalWattage: 129};
+
+var buffet = {dailyDuration: 0,
+  weeklyDuration: 0,
+  monthlyDuration: 0,
+  bulbType: "LED",
+  bulbCount: 2,
+  bulbWattage: 5,
+  totalWattage: 10};
+
+var homeTheater = {dailyDuration: 0,
+  weeklyDuration: 0,
+  monthlyDuration: 0,
+  bulbType: "LED",
+  bulbCount: 4,
+  bulbWattage: 12,
+  totalWattage: 48};
+
+var secondBasement = {dailyDuration: 0,
+  weeklyDuration: 0,
+  monthlyDuration: 0,
+  bulbType: "LED",
+  bulbCount: 4,
+  bulbWattage: 12,
+  totalWattage: 48};
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -126,8 +170,38 @@ app.post('/switchevent', function(req, res){
 
   var json = req.body;
 
+  switch (json.deviceName){
+    case "chandelier":
+      chandelier.dailyDuration += json.duration;
+      chandelier.monthlyDuration += json.duration;
+      chandelier.weeklyDuration += json.duration;
+      break;
+    case "Bedroom Overhead":
+      bedroom.dailyDuration += json.duration;
+      bedroom.monthlyDuration += json.duration;
+      bedroom.weeklyDuration += json.duration;
+      break;
+    case "Buffet Lights":
+      buffet.dailyDuration += json.duration;
+      buffet.monthlyDuration += json.duration;
+      buffet.weeklyDuration += json.duration;
+      break;
+    case "Second Basement Dimmer":
+      secondBasement.dailyDuration += json.duration;
+      secondBasement.monthlyDuration += json.duration;
+      secondBasement.weeklyDuration += json.duration;
+      break;
+    case "Home Theater Front Lights":
+      homeTheater.dailyDuration += json.duration;
+      homeTheater.monthlyDuration += json.duration;
+      homeTheater.weeklyDuration += json.duration;
+      break;
+    case default:
+      console.log("No matching deviceName: " + json.deviceName);
+  }
+
   console.log("DeviceName: " + json.deviceName);
-  console.log("Duration: " + json.duration); 
+  console.log("Duration: " + json.duration);
 
   //Constructs DB instance for app
   MongoClient.connect(mongoDbUrl, (err, database) => {
@@ -168,5 +242,33 @@ MongoClient.connect(mongoDbUrl, function(err, database) {
   db = database;
   console.log('DB Initilized');
 });
+
+//Daily clearing of dailyDuration
+var j = schedule.scheduleJob('0 0 0 1/1 * ? *', function(){
+  chandelier.dailyDuration = 0;
+  bedroom.dailyDuration = 0;
+  buffet.dailyDuration = 0;
+  secondBasement.dailyDuration = 0;
+  homeTheater.dailyDuration = 0;
+});
+
+//Weekly clearing of weeklyDuration
+var j = schedule.scheduleJob('0 0 0 ? * SUN *', function(){
+  chandelier.weeklyDuration = 0;
+  bedroom.weeklyDuration = 0;
+  buffet.weeklyDuration = 0;
+  secondBasement.weeklyDuration = 0;
+  homeTheater.weeklyDuration = 0;
+});
+
+//Weekly clearing of monthlyDuration
+var j = schedule.scheduleJob('0 0 0 1 1/1 ? *', function(){
+  chandelier.monthlyDuration = 0;
+  bedroom.monthlyDuration = 0;
+  buffet.monthlyDuration = 0;
+  secondBasement.monthlyDuration = 0;
+  homeTheater.monthlyDuration = 0;
+});
+
 
 module.exports = app;
