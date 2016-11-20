@@ -6,6 +6,7 @@ var dbUser = process.env.DB_USER;
 var dbPass = process.env.DB_PASSWORD;
 var bearer = process.env.BEARER;
 var access_url = process.env.ACCESS_URL;
+var callback_url = process.env.CALLBACK_URL;
 
 var express = require('express');
 var path = require('path');
@@ -60,7 +61,7 @@ var oauth2 = require('simple-oauth2').create(creds);
 
 // Authorization uri definition
 var authorization_uri = oauth2.authorizationCode.authorizeURL({
-  redirect_uri: 'https://energywebapp.herokuapp.com/callback',
+  redirect_uri: callback_url + '/callback',
   scope: 'app',
   state: '3(#0/!~'
 });
@@ -93,7 +94,7 @@ app.get('/callback', function (req, res) {
   // console.log('/callback got code' + code);
   oauth2.authorizationCode.getToken({
     code: code,
-    redirect_uri: 'https://energywebapp.herokuapp.com/callback'
+    redirect_uri: callback_url + '/callback'
   }, saveToken);
 
   function saveToken(error, result) {
@@ -240,29 +241,62 @@ MongoClient.connect(mongoDbUrl, function(err, database) {
 
 //Daily clearing of dailyDuration
 var j = schedule.scheduleJob('0 0 0 1/1 * ? *', function(){
-  chandelier.dailyDuration = 0;
-  bedroom.dailyDuration = 0;
-  buffet.dailyDuration = 0;
-  secondBasement.dailyDuration = 0;
-  homeTheater.dailyDuration = 0;
+  for(var i = 0; i < devices.length; i++) {
+  db.collection('durations').findAndModify(
+    {deviceName: devices[i]}, // query
+    [['_id','asc']],  // sort order
+    {$set: {
+      dailyDuration: 0
+    }},
+    {}, // options
+    function(err, object) {
+        if (err){
+            console.warn(err.message);  // returns error if no matching object found
+        }else{
+            console.dir(object);
+        }
+    });
+  }
 });
 
 //Weekly clearing of weeklyDuration
 var j = schedule.scheduleJob('0 0 0 ? * SUN *', function(){
-  chandelier.weeklyDuration = 0;
-  bedroom.weeklyDuration = 0;
-  buffet.weeklyDuration = 0;
-  secondBasement.weeklyDuration = 0;
-  homeTheater.weeklyDuration = 0;
+  for(var i = 0; i < devices.length; i++) {
+  db.collection('durations').findAndModify(
+    {deviceName: devices[i]}, // query
+    [['_id','asc']],  // sort order
+    {$set: {
+      weeklyDuration: 0
+    }},
+    {}, // options
+    function(err, object) {
+        if (err){
+            console.warn(err.message);  // returns error if no matching object found
+        }else{
+            console.dir(object);
+        }
+    });
+  }
 });
 
-//Weekly clearing of monthlyDuration
+//Monthly clearing of monthlyDuration
 var j = schedule.scheduleJob('0 0 0 1 1/1 ? *', function(){
-  chandelier.monthlyDuration = 0;
-  bedroom.monthlyDuration = 0;
-  buffet.monthlyDuration = 0;
-  secondBasement.monthlyDuration = 0;
-  homeTheater.monthlyDuration = 0;
+  for(var i = 0; i < devices.length; i++) {
+  db.collection('durations').findAndModify(
+    {deviceName: devices[i]}, // query
+    [['_id','asc']],  // sort order
+    {$set: {
+      monthlyDuration: 0
+    }},
+    {}, // options
+    function(err, object) {
+        if (err){
+            console.warn(err.message);  // returns error if no matching object found
+        }else{
+            console.dir(object);
+        }
+    });
+  }
 });
 
 
