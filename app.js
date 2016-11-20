@@ -24,49 +24,6 @@ var mongoDbUrl = 'mongodb://' + dbUser + ":" + dbPass +
 "@ds151707.mlab.com:51707/energywebapp";
 var app = express();
 
-//Hardcoded device key/value pairs for prototype demo
-//Should be moved to mongoDB collection
-var chandelier = {dailyDuration: 0,
-  weeklyDuration: 0,
-  monthlyDuration: 0,
-  bulbType: "LED",
-  bulbCount: 15,
-  bulbWattage: 1.8,
-  totalWattage: 27};
-
-var bedroom = {dailyDuration: 0,
-  weeklyDuration: 0,
-  monthlyDuration: 0,
-  bulbType: "LED",
-  bulbCount: 6,
-  bulbWattage: 21.5,
-  totalWattage: 129};
-
-var buffet = {dailyDuration: 0,
-  weeklyDuration: 0,
-  monthlyDuration: 0,
-  bulbType: "LED",
-  bulbCount: 2,
-  bulbWattage: 5,
-  totalWattage: 10};
-
-var homeTheater = {dailyDuration: 0,
-  weeklyDuration: 0,
-  monthlyDuration: 0,
-  bulbType: "LED",
-  bulbCount: 4,
-  bulbWattage: 12,
-  totalWattage: 48};
-
-var secondBasement = {dailyDuration: 0,
-  weeklyDuration: 0,
-  monthlyDuration: 0,
-  bulbType: "LED",
-  bulbCount: 4,
-  bulbWattage: 12,
-  totalWattage: 48};
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -163,56 +120,85 @@ app.use('/', index);
 //use currentstatus.js for this route
 app.use('/currentstatus', currentstatus);
 
-//Example of actually accepting JSON and inserting it into DB
-//If you run this and use Postman to send yourself JSON data, it works
-app.post('/switchevent', function(req, res){
+app.post('/switchon', function(req, res){
   console.log(req.body);
 
   var json = req.body;
-
-  switch (json.deviceName){
-    case "chandelier":
-      chandelier.dailyDuration += json.duration;
-      chandelier.monthlyDuration += json.duration;
-      chandelier.weeklyDuration += json.duration;
-      break;
-    case "Bedroom Overhead":
-      bedroom.dailyDuration += json.duration;
-      bedroom.monthlyDuration += json.duration;
-      bedroom.weeklyDuration += json.duration;
-      break;
-    case "Buffet Lights":
-      buffet.dailyDuration += json.duration;
-      buffet.monthlyDuration += json.duration;
-      buffet.weeklyDuration += json.duration;
-      break;
-    case "Second Basement Dimmer":
-      secondBasement.dailyDuration += json.duration;
-      secondBasement.monthlyDuration += json.duration;
-      secondBasement.weeklyDuration += json.duration;
-      break;
-    case "Home Theater Front Lights":
-      homeTheater.dailyDuration += json.duration;
-      homeTheater.monthlyDuration += json.duration;
-      homeTheater.weeklyDuration += json.duration;
-      break;
-    default:
-      console.log("No matching deviceName: " + json.deviceName);
-  }
+  var dName = json.deviceName;
+  var dTimeOn = json.timeOn;
 
   console.log("DeviceName: " + json.deviceName);
   console.log("Duration: " + json.duration);
 
-  //Constructs DB instance for app
-  MongoClient.connect(mongoDbUrl, (err, database) => {
-    if (err) return console.log(err)
-    db = database
-    console.log('DB Connected!')
-    db.collection('switch_test').insert(json, function(err, doc) {
-        console.log(doc);
-    if(err) throw err;
-    res.send(doc + "\nInserted");
+  db.collection('durations').findAndModify(
+    {deviceName: dName}, // query
+    [['_id','asc']],  // sort order
+    {$set: {
+      lastOnTime: dTimeOn
+    }},
+    {}, // options
+    function(err, object) {
+        if (err){
+            console.warn(err.message);  // returns error if no matching object found
+        }else{
+            console.dir(object);
+        }
     });
+});
+
+
+//Example of actually accepting JSON and inserting it into DB
+//If you run this and use Postman to send yourself JSON data, it works
+app.post('/switchoff', function(req, res){
+  console.log(req.body);
+
+  var json = req.body;
+  var dTimeOff = json.timeOff;
+  var dDuration = json.duration;
+  var dName = json.deviceName;
+
+  //Retreive current record to get Durations to add to
+  db.collection('durations').findOne(
+    {deviceName: dName}, // query
+    function(err, object) {
+        if (err){
+            console.warn(err.message);  // returns error if no matching object found
+        }else{
+            console.dir(object);
+            //Retrieve the durations from the object
+            //Add new duration
+            var dDuration = object.dailyDuration + dDuration;
+            var wDuration = object.weeklyDuration + dDuration;
+            var mDuration = object.monthlyDuration + dDuration;
+
+            //Time to update the record
+            db.collection('durations').findAndModify(
+              {deviceName: dName}, // query
+              [['_id','asc']],  // sort order
+              {$set: {
+                lastOffTime: dTimeOff,
+                dailyDuration: dDuration,
+                weeklyDuration: wDuration,
+                monthlyDuration: mDuration
+              }},
+              {}, // options
+              function(err, object) {
+                  if (err){
+                      console.warn(err.message);  // returns error if no matching object found
+                  }else{
+                      console.dir(object);
+                  }
+              });
+        }
+    });
+
+  console.log("DeviceName: " + json.deviceName);
+  console.log("Duration: " + json.duration);
+
+  db.collection('switch_test').insert(json, function(err, doc) {
+      console.log(doc);
+  if(err) throw err;
+  res.send(doc + "\nInserted");
   });
 });
 
