@@ -24,6 +24,14 @@ var mongoDbUrl = 'mongodb://' + dbUser + ":" + dbPass +
 "@ds151707.mlab.com:51707/energywebapp";
 var app = express();
 
+var devices = [ 'Chandelier',
+                'Home Theater Front Lights',
+                'Second Basement Dimmer',
+                'Bedroom Overhead',
+                'Buffet Lights'
+              ]
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -128,7 +136,7 @@ app.post('/switchon', function(req, res){
   var dTimeOn = json.timeOn;
 
   console.log("DeviceName: " + json.deviceName);
-  console.log("Duration: " + json.duration);
+  console.log("TimeOn: " + json.dTimeOn);
 
   db.collection('durations').findAndModify(
     {deviceName: dName}, // query
@@ -142,6 +150,7 @@ app.post('/switchon', function(req, res){
             console.warn(err.message);  // returns error if no matching object found
         }else{
             console.dir(object);
+            res.send(dName + " timeOn Updated");
         }
     });
 });
@@ -154,7 +163,7 @@ app.post('/switchoff', function(req, res){
 
   var json = req.body;
   var dTimeOff = json.timeOff;
-  var dDuration = json.duration;
+  var dDuration = parseInt(json.duration);
   var dName = json.deviceName;
 
   //Retreive current record to get Durations to add to
@@ -167,9 +176,9 @@ app.post('/switchoff', function(req, res){
             console.dir(object);
             //Retrieve the durations from the object
             //Add new duration
-            var dDuration = object.dailyDuration + dDuration;
-            var wDuration = object.weeklyDuration + dDuration;
-            var mDuration = object.monthlyDuration + dDuration;
+            var dayDuration = parseInt(object.dailyDuration) + dDuration;
+            var wDuration = parseInt(object.weeklyDuration) + dDuration;
+            var mDuration = parseInt(object.monthlyDuration) + dDuration;
 
             //Time to update the record
             db.collection('durations').findAndModify(
@@ -177,7 +186,7 @@ app.post('/switchoff', function(req, res){
               [['_id','asc']],  // sort order
               {$set: {
                 lastOffTime: dTimeOff,
-                dailyDuration: dDuration,
+                dailyDuration: dayDuration,
                 weeklyDuration: wDuration,
                 monthlyDuration: mDuration
               }},
