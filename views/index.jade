@@ -2,5 +2,6 @@ extends layout
 
 block content
   h1= title
-    var itemArray = JSON.parse( !{JSON.stringify(results)} );
-    p #{itemArray}
+    ul
+        for result in results
+            li !{result.name} : !{result.value}
