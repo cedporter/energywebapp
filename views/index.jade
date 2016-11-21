@@ -2,11 +2,10 @@ extends layout
 
 block content
   h1= title
-
   ul
-    each result in results
+    each result,i in results
         li
-            #{result}
+            #{i} : #{result}
 
 
 
