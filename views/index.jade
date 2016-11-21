@@ -2,12 +2,11 @@ extends layout
 
 block content
   h1= title
-  var results = JSON.parse(docs)
 
   ul
-    for (var result in results)
+    for result in results
         li
-            #{result} : #{results[result]}
+            #{result.name}
 
 
 
