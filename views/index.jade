@@ -3,6 +3,9 @@ extends layout
 block content
   h1= title
   ul
-    each value,index in docs
-       li= index + ': ' + value
+    each doc in docs
+        div.doc
+            div.deviceName = doc.deviceName
+
+
 
