@@ -7,7 +7,6 @@ router.get('/', function (req, res){
   var db = req.db;
   db.collection('durations').find().toArray(function(err, docs) {
     console.log("RETRIEVED " + docs);
-    docs = docs.JSON;
     if(err) throw err;
     res.render('index', {"results" : docs
     });
