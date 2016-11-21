@@ -3,7 +3,7 @@ extends layout
 block content
   h1= title
   ul
-    each result in results
+    each doc in docs
        li
-            !{result}
+            #{doc.name}
 
