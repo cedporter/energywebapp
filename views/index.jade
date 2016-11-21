@@ -2,5 +2,7 @@ extends layout
 
 block content
   h1= title
-    ul
-        p #{results}
+  ul
+    each result in results
+       li
+            p #{result}
