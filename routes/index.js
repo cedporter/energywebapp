@@ -5,7 +5,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function (req, res){
   var db = req.db;
-  db.collection('durations').find().toArray(function(err, docs) {
+  db.collection('durations').find()(function(err, docs) {
     console.log("RETRIEVED " + docs);
     if(err) throw err;
     res.render('index', { "resultsList" : docs
