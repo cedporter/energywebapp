@@ -5,7 +5,9 @@ block content
   ul
     each result,i in resultsList
         li
-            #{i} : #{result}
+            #{result.deviceName}
+                li
+                    #{result.lastOnTime}
 
 
 
