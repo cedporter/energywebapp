@@ -9,8 +9,7 @@ router.get('/', function (req, res){
     console.log("RETRIEVED " + docs);
     if(err) throw err;
     docs = JSON.stringify(docs);
-    results.push(docs);
-    res.render('index', { "results" : results
+    res.render('index', { "resultsList" : docs
     });
   });
 });
