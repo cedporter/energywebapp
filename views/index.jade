@@ -2,8 +2,9 @@ extends layout
 
 block content
   h1= title
-    p= results
-
+    ul
+        each result in results
+            p= result
 
 
 
