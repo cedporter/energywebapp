@@ -3,7 +3,8 @@ extends layout
 block content
   h1= title
   each result, i in results
-    p #{result._id}
+    p #{result.deviceName}
+        p #{result.dailyDuration}
 
 
 
