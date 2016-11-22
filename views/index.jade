@@ -2,8 +2,8 @@ extends layout
 
 block content
   h1= title
-    #container.col
-        each result, i in results
+    ul
+      each result, i in results
           h4 #{i+1}: #{result.deviceName}
            li  Type of Bulb : #{result.bulbType}
            li  Bulb Wattage : #{result.bulbWattage}
