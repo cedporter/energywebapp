@@ -10,7 +10,7 @@ router.get('/', function (req, res){
     if(err) throw err;
     else {
       var len = docs.length;
-      res.render('index', {results: docs, "length": len });
+      res.render('index', {results: docs});
     }
   });
 });
