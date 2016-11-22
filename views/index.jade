@@ -4,8 +4,8 @@ block content
   h1= Energy Web Prototype
   ul
     #container.col
-    each result, i in results
-        p #{result.deviceName}
+        each result, i in results
+            li #{result.deviceName}
             li #{result.bulbType}
             li #{result.bulbWattage}
             li #{result.lastOnTime}
