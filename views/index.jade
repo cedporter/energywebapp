@@ -4,7 +4,7 @@ block content
   h1= title
     ul
         each result, i in results
-            div(style="float: left;")
+            div(style="float: left; width: 100px; padding: 5px")
                 h4 #{i+1}: #{result.deviceName}
                     li  Type of Bulb : #{result.bulbType}
                     li  Bulb Wattage : #{result.bulbWattage}
