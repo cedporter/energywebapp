@@ -4,18 +4,19 @@ block content
   h1= title
     ul
         each result, i in results
+        var device = #{result.deviceName}
             div(style="float: left; width: 500px; padding: 5px")
                 p #{i+1}: #{result.deviceName}
-                var device = #{result.deviceName}
                 if device == "Bedroom Overhead"
                     img(src="/stylesheets/images/overheadLights.jpeg" alt="Bedroom Lights")
-                    li  Type of Bulb : #{result.bulbType}
-                    li  Bulb Wattage : #{result.bulbWattage}
-                    li  Last ON :  #{result.lastOnTime}
-                    li  Last OFF : #{result.lastOffTime}
-                    li  Daily Duration : #{result.dailyDuration}
-                    li  Monthly Duration : #{result.monthlyDuration}
-                    li  Current Status : #{result.status}
+
+                li  Type of Bulb : #{result.bulbType}
+                li  Bulb Wattage : #{result.bulbWattage}
+                li  Last ON :  #{result.lastOnTime}
+                li  Last OFF : #{result.lastOffTime}
+                li  Daily Duration : #{result.dailyDuration}
+                li  Monthly Duration : #{result.monthlyDuration}
+                li  Current Status : #{result.status}
 
 
 
