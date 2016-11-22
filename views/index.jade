@@ -2,16 +2,15 @@ extends layout
 
 block content
   h1= title
-  ul
     each result, i in results
         #container.col
-          p #{i1+1}: #{result.deviceName}
-            li Type of Bulb : #{result.bulbType}
-            li #{result.bulbWattage}
-            li #{result.lastOnTime}
-            li #{result.lastOffTime}
-            li #{result.dailyDuration}
-            li #{result.monthlyDuration}
+          p #{i+1}: #{result.deviceName}
+             Type of Bulb : #{result.bulbType}
+             #{result.bulbWattage}
+             #{result.lastOnTime}
+             #{result.lastOffTime}
+             #{result.dailyDuration}
+             #{result.monthlyDuration}
 
 
 

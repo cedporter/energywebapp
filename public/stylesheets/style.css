@@ -4,9 +4,10 @@ body {
   background: #ddffdd;
 }
 
-li {
+p {
   color: coral;
   font-size: 12px;
+  font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
 }
 
 a {
