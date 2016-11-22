@@ -3,8 +3,8 @@ extends layout
 block content
   h1= title
     ul
-        div(style="float: left;")
-            each result, i in results
+        each result, i in results
+            div(style="float: left;")
                 h4 #{i+1}: #{result.deviceName}
                     li  Type of Bulb : #{result.bulbType}
                     li  Bulb Wattage : #{result.bulbWattage}

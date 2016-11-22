@@ -5,20 +5,13 @@ body {
 }
 
 p {
-  color: coral;
-  font-size: 16px;
-  text-align: left;
-}
-
-h4 {
-  color: coral;
-  font-size: 14px;
-  font-family: Avenir;
+  color: black;
+  font-size: 18px;
   text-align: left;
 }
 
 li {
-  color: black;
+  color: coral;
   font-size: 14px;
   font-family: Avenir;
   text-align: left;
@@ -30,4 +23,5 @@ a {
 
 h1 {
   text-align:center;
+  background-color: coral;
 }
