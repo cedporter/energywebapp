@@ -1,6 +1,18 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #ddffdd;
+}
+
+h4 {
+  color: coral;
+  font-size: 12px;
+  font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
+}
+
+li {
+  color: coral;
+  font-size: 12px;
 }
 
 a {

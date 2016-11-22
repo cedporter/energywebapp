@@ -2,4 +2,19 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+    each result, i in results
+        #container.col
+          h4= #{i+1}: #{result.deviceName}
+           li  Type of Bulb : #{result.bulbType}
+           li  Bulb Wattage : #{result.bulbWattage}
+           li  Last ON : #{result.lastOnTime}
+           li  Last OFF : #{result.lastOffTime}
+           li  Daily Duration : #{result.dailyDuration}
+           li  Monthly Duration : #{result.monthlyDuration}
+
+
+
+
+
+
+
