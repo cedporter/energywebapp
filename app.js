@@ -143,7 +143,8 @@ app.post('/switchon', function(req, res){
     {deviceName: dName}, // query
     [['_id','asc']],  // sort order
     {$set: {
-      lastOnTime: dTimeOn
+      lastOnTime: dTimeOn,
+      status: "on"
     }},
     {}, // options
     function(err, object) {
@@ -189,7 +190,8 @@ app.post('/switchoff', function(req, res){
                 lastOffTime: dTimeOff,
                 dailyDuration: dayDuration,
                 weeklyDuration: wDuration,
-                monthlyDuration: mDuration
+                monthlyDuration: mDuration,
+                status: "off"
               }},
               {}, // options
               function(err, object) {
@@ -240,7 +242,7 @@ MongoClient.connect(mongoDbUrl, function(err, database) {
 });
 
 //Daily clearing of dailyDuration
-var j = schedule.scheduleJob('0 0 0 1/1 * ? *', function(){
+schedule.scheduleJob('0 0 0 1/1 * ? *', function(){
   for(var i = 0; i < devices.length; i++) {
   db.collection('durations').findAndModify(
     {deviceName: devices[i]}, // query
@@ -260,7 +262,7 @@ var j = schedule.scheduleJob('0 0 0 1/1 * ? *', function(){
 });
 
 //Weekly clearing of weeklyDuration
-var j = schedule.scheduleJob('0 0 0 ? * SUN *', function(){
+schedule.scheduleJob('0 0 0 ? * SUN *', function(){
   for(var i = 0; i < devices.length; i++) {
   db.collection('durations').findAndModify(
     {deviceName: devices[i]}, // query
@@ -280,7 +282,7 @@ var j = schedule.scheduleJob('0 0 0 ? * SUN *', function(){
 });
 
 //Monthly clearing of monthlyDuration
-var j = schedule.scheduleJob('0 0 0 1 1/1 ? *', function(){
+schedule.scheduleJob('0 0 0 1 1/1 ? *', function(){
   for(var i = 0; i < devices.length; i++) {
   db.collection('durations').findAndModify(
     {deviceName: devices[i]}, // query
