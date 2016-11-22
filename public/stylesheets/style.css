@@ -10,6 +10,11 @@ p {
   font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
 }
 
+li {
+  color: coral;
+  font-size: 12px;
+}
+
 a {
   color: #00B7FF;
 }
