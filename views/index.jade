@@ -4,7 +4,7 @@ block content
   h1= title
   ul
   each result, i in results
-    li #{i} . #{result.deviceName}
+    div #{i} . #{result.deviceName}
         li #{result.bulbType}
         li #{result.bulbWattage}
         li #{result.lastOnTime}
