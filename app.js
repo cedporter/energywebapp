@@ -143,7 +143,8 @@ app.post('/switchon', function(req, res){
     {deviceName: dName}, // query
     [['_id','asc']],  // sort order
     {$set: {
-      lastOnTime: dTimeOn
+      lastOnTime: dTimeOn,
+      status: "on"
     }},
     {}, // options
     function(err, object) {
@@ -189,7 +190,8 @@ app.post('/switchoff', function(req, res){
                 lastOffTime: dTimeOff,
                 dailyDuration: dayDuration,
                 weeklyDuration: wDuration,
-                monthlyDuration: mDuration
+                monthlyDuration: mDuration,
+                status: "off"
               }},
               {}, // options
               function(err, object) {
