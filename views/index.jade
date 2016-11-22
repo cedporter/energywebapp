@@ -8,6 +8,14 @@ block content
                 p #{i+1}: #{result.deviceName}
                 if result.deviceName == "Bedroom Overhead"
                     img(src="/stylesheets/images/overheadLights.jpeg" alt="Bedroom Lights" width="100" height="140" align="left")
+                if result.deviceName == "Buffet Lights"
+                    img(src="/stylesheets/images/buffetLights.jpeg" alt="Bedroom Lights" width="100" height="140" align="left")
+                if result.deviceName == "Home Theater Front Lights"
+                    img(src="/stylesheets/images/frontLights.jpg" alt="Bedroom Lights" width="100" height="140" align="left")
+                if result.deviceName == "Chandelier"
+                    img(src="/stylesheets/images/chandelier.jpg" alt="Bedroom Lights" width="100" height="140" align="left")
+                if result.deviceName == "Second Basement Dimmer"
+                    img(src="/stylesheets/images/basementDimmer.jpeg" alt="Bedroom Lights" width="100" height="140" align="left")
                     li  Type of Bulb : #{result.bulbType}
                     li  Bulb Wattage : #{result.bulbWattage}
                     li  Last ON :  #{result.lastOnTime}
