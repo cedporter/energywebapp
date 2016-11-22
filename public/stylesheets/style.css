@@ -21,6 +21,12 @@ a {
   color: #00B7FF;
 }
 
+div {
+  float: left;
+  width: 500px;
+  padding: 5px
+}
+
 h1 {
   text-align:center;
   background-color: coral;

@@ -4,10 +4,10 @@ block content
   h1= title
     ul
         each result, i in results
-            div(style="float: left; width: 500px; padding: 5px")
+            div
                 p #{i+1}: #{result.deviceName}
                 if result.deviceName == "Bedroom Overhead"
-                    img(src="/stylesheets/images/overheadLights.jpeg" alt="Bedroom Lights")
+                    img(src="/stylesheets/images/overheadLights.jpeg" alt="Bedroom Lights" width="100" height="140" align="left")
                     li  Type of Bulb : #{result.bulbType}
                     li  Bulb Wattage : #{result.bulbWattage}
                     li  Last ON :  #{result.lastOnTime}
