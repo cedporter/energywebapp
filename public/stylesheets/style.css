@@ -7,12 +7,21 @@ body {
 p {
   color: coral;
   font-size: 16px;
+  text-align: left;
 }
 
-li {
+h4 {
   color: black;
   font-size: 14px;
   font-family: Avenir;
+  text-align: left;
+}
+
+li {
+  color: coral;
+  font-size: 14px;
+  font-family: Avenir;
+  text-align: left;
 }
 
 a {

@@ -5,9 +5,9 @@ block content
     ul
       each result, i in results
           p #{i+1}: #{result.deviceName}
-           li  Type of Bulb : #{result.bulbType}
-           li  Bulb Wattage : #{result.bulbWattage}
-           li  Last ON : #{result.lastOnTime}
+           li  Type of Bulb : h4 #{result.bulbType}
+           li  Bulb Wattage : h4 #{result.bulbWattage}
+           li  Last ON : h4 #{result.lastOnTime}
            li  Last OFF : #{result.lastOffTime}
            li  Daily Duration : #{result.dailyDuration}
            li  Monthly Duration : #{result.monthlyDuration}
