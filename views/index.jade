@@ -3,15 +3,18 @@ extends layout
 block content
   h1= title
   ul
-  each result, i in results
-    div #{i} . #{result.deviceName}
-        li #{result.bulbType}
-        li #{result.bulbWattage}
-        li #{result.lastOnTime}
-        li #{result.lastOffTime}
-        li #{result.dailyDuration}
-        li #{result.monthlyDuration}
-        li #{result.yearlyDuration}
+    #container.col
+    each result, i in results
+
+        p #{i} . #{result.deviceName}
+            li #{result.bulbType}
+            li #{result.bulbWattage}
+            li #{result.lastOnTime}
+            li #{result.lastOffTime}
+            li #{result.dailyDuration}
+            li #{result.monthlyDuration}
+            li #{result.yearlyDuration}
+
 
 
 
