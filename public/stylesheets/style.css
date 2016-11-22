@@ -1,16 +1,16 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #ddffdd;
+  background: #bbffbb;
 }
 
-h4 {
+p {
   color: coral;
   font-size: 16px;
 }
 
 li {
-  color: coral;
+  color: black;
   font-size: 14px;
   font-family: Avenir;
 }
