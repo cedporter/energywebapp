@@ -4,7 +4,7 @@ block content
   h1= title
     each result, i in results
         #container.col
-          p #{i+1}: #{result.deviceName}
+          h4= #{i+1}: #{result.deviceName}
            li  Type of Bulb : #{result.bulbType}
            li  Bulb Wattage : #{result.bulbWattage}
            li  Last ON : #{result.lastOnTime}
