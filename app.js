@@ -15,7 +15,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var request = require('request');
-var schedule = require('node-schedule');
+var cron = require('node-cron');
 
 var index = require('./routes/index');
 var currentstatus = require('./routes/currentstatus');
@@ -242,7 +242,7 @@ MongoClient.connect(mongoDbUrl, function(err, database) {
 });
 
 //Daily clearing of dailyDuration
-schedule.scheduleJob('0 0 0 1/1 * ? *', function(){
+cron.schedule('0 0 * * *', function(){
   for(var i = 0; i < devices.length; i++) {
   db.collection('durations').findAndModify(
     {deviceName: devices[i]}, // query
@@ -262,7 +262,7 @@ schedule.scheduleJob('0 0 0 1/1 * ? *', function(){
 });
 
 //Weekly clearing of weeklyDuration
-schedule.scheduleJob('0 0 0 ? * SUN *', function(){
+cron.schedule('0 0 * * 0', function(){
   for(var i = 0; i < devices.length; i++) {
   db.collection('durations').findAndModify(
     {deviceName: devices[i]}, // query
@@ -282,7 +282,7 @@ schedule.scheduleJob('0 0 0 ? * SUN *', function(){
 });
 
 //Monthly clearing of monthlyDuration
-schedule.scheduleJob('0 0 0 1 1/1 ? *', function(){
+cron.schedule('0 0 1 * *', function(){
   for(var i = 0; i < devices.length; i++) {
   db.collection('durations').findAndModify(
     {deviceName: devices[i]}, // query
