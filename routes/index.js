@@ -10,12 +10,12 @@ router.get('/', function (req, res){
     if(err) throw err;
     else {
       var len = docs.length;
-      var duration = docs.valueOf("duration");
-      duration = moment().startOf('day')
-          .seconds(duration)
-          .format('H:mm:ss');
-      res.send(duration);
-      //res.render('index', {results: docs, "length": len});
+      //var duration = docs.valueOf("duration");
+      //duration = moment().startOf('day')
+      //    .seconds(duration)
+      //    .format('H:mm:ss');
+      //res.send(duration);
+      res.render('index', {results: docs, "length": len});
     }
   });
 });
