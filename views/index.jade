@@ -8,13 +8,14 @@ block content
                 p #{i+1}: #{result.deviceName}
                 if result.deviceName == "Bedroom Overhead"
                     img(src="/stylesheets/images/lamp-2.png" alt="Bedroom Lights" width="100" height="140" align="left" style="PADDING-RIGHT: 25px")
-                    var duration = #{moment().startOf('day').seconds(result.monthlyDuration).format('H:mm:ss')}
+                    var dailyduration = #{moment().startOf('day').seconds(result.dailyDuration).format('H:mm:ss')
+                    var monthduration = #{moment().startOf('day').seconds(result.monthlyDuration).format('H:mm:ss')}
                     li  Type of Bulb : #{result.bulbType}
                     li  Bulb Wattage : #{result.bulbWattage}
                     li  Last ON :  #{result.lastOnTime}
                     li  Last OFF : #{result.lastOffTime}
-                    li  Daily Duration : #{result.dailyDuration}
-                    li  Monthly Duration : duration
+                    li  Daily Duration : #{dailyduration}
+                    li  Monthly Duration : #{monthduration}
                     li  Current Status : #{result.status}
                 if result.deviceName == "Buffet Lights"
                     img(src="/stylesheets/images/lamp.png" alt="Buffet Lights" width="100" height="140" align="left" style="PADDING-RIGHT: 25px")
