@@ -29,6 +29,8 @@ div {
 
 h1 {
   text-align:center;
-  background-color:coral;
+  color: coral;
+  font-size: 55px;
+  font-family: Helvetica
 
 }
