@@ -1,8 +1,8 @@
 extends layout
 
 block content
+     img(src="/stylesheets/images/HomeIQ.png" alt="Bedroom Lights" width="200" height="200" align="center")
      ul
-        img(src="/stylesheets/images/HomeIQ.png" alt="Bedroom Lights" width="200" height="200" align="center")
         each result, i in results
             div
                 p #{i+1}: #{result.deviceName}
