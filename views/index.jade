@@ -14,6 +14,7 @@ block content
                     li  Last ON :  #{result.lastOnTime}
                     li  Last OFF : #{result.lastOffTime}
                     li  Daily Duration : #{moment().startOf('day').seconds(result.dailyDuration).format('H:mm:ss')}
+                    li  Weekly Duration : #{moment().startOf('day').seconds(result.weeklyDuration).format('H:mm:ss')}
                     li  Monthly Duration : #{moment().startOf('day').seconds(result.monthlyDuration).format('H:mm:ss')}
                     li  Current Status : #{result.status}
                 if result.deviceName == "Buffet Lights"
@@ -23,6 +24,7 @@ block content
                     li  Last ON :  #{result.lastOnTime}
                     li  Last OFF : #{result.lastOffTime}
                     li  Daily Duration : #{moment().startOf('day').seconds(result.dailyDuration).format('H:mm:ss')}
+                    li  Weekly Duration : #{moment().startOf('day').seconds(result.weeklyDuration).format('H:mm:ss')}
                     li  Monthly Duration : #{moment().startOf('day').seconds(result.monthlyDuration).format('H:mm:ss')}
                     li  Current Status : #{result.status}
                 if result.deviceName == "Home Theater Front Lights"
@@ -32,6 +34,7 @@ block content
                     li  Last ON :  #{result.lastOnTime}
                     li  Last OFF : #{result.lastOffTime}
                     li  Daily Duration : #{moment().startOf('day').seconds(result.dailyDuration).format('H:mm:ss')}
+                    li  Weekly Duration : #{moment().startOf('day').seconds(result.weeklyDuration).format('H:mm:ss')}
                     li  Monthly Duration : #{moment().startOf('day').seconds(result.monthlyDuration).format('H:mm:ss')}
                     li  Current Status : #{result.status}
                 if result.deviceName == "Chandelier"
@@ -41,6 +44,7 @@ block content
                     li  Last ON :  #{result.lastOnTime}
                     li  Last OFF : #{result.lastOffTime}
                     li  Daily Duration : #{moment().startOf('day').seconds(result.dailyDuration).format('H:mm:ss')}
+                    li  Weekly Duration : #{moment().startOf('day').seconds(result.weeklyDuration).format('H:mm:ss')}
                     li  Monthly Duration : #{moment().startOf('day').seconds(result.monthlyDuration).format('H:mm:ss')}
                     li  Current Status : #{result.status}
                 if result.deviceName == "Second Basement Dimmer"
@@ -50,6 +54,7 @@ block content
                     li  Last ON :  #{result.lastOnTime}
                     li  Last OFF : #{result.lastOffTime}
                     li  Daily Duration : #{moment().startOf('day').seconds(result.dailyDuration).format('H:mm:ss')}
+                    li  Weekly Duration : #{moment().startOf('day').seconds(result.weeklyDuration).format('H:mm:ss')}
                     li  Monthly Duration : #{moment().startOf('day').seconds(result.monthlyDuration).format('H:mm:ss')}
                     li  Current Status : #{result.status}
 
